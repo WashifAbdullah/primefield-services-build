@@ -1,4 +1,4 @@
-# Deploying PrimeField Services to Hostinger
+# Deploying Primefield Property Services to Hostinger
 
 One Node process serves the whole site: the public pages, the back office at `/admin`,
 and the forms. There is no build step on the server and nothing to compile. A deploy is
@@ -77,8 +77,8 @@ same screen.
 | Field | Value |
 | --- | --- |
 | Node version | 20 or newer. The build targets Node 20. |
-| Application root | the folder the zip will be extracted into, for example `domains/primefieldservices.com/app` |
-| Application URL | the domain itself, `primefieldservices.com` |
+| Application root | the folder the zip will be extracted into, for example `domains/primefieldpropertyservices.com/app` |
+| Application URL | the domain itself, `primefieldpropertyservices.com` |
 | Application startup file | `server.js`. It works whether the platform runs it or requires it; `server/index.js` only works when it is run. |
 
 Leave it created and stopped for now. There is nothing in the folder yet.
@@ -86,7 +86,7 @@ Leave it created and stopped for now. There is nothing in the folder yet.
 **If the domain cannot be attached to the Node application.** Some hPanel plans will not
 let a Node app take a domain that is already serving a website, and the Application URL
 dropdown then shows no usable entry. Attach a subdomain instead, for example
-`app.primefieldservices.com`, finish the whole deploy against it, and point the
+`app.primefieldpropertyservices.com`, finish the whole deploy against it, and point the
 domain at it afterwards. One rule while you do that: `SITE_URL` in the environment must
 be the address people actually visit. It is what the reference links in the office
 emails are built from, so a mismatch sends the owner to a page that does not exist.
@@ -118,16 +118,16 @@ Copy `.env.example` from the project, fill it in, and upload it into `DATA_DIR` 
 ```
 NODE_ENV=production
 PORT=3000
-SITE_URL=https://primefieldservices.com
+SITE_URL=https://primefieldpropertyservices.com
 DATA_DIR=/home/u123456/primefield-data
 DATABASE_URL=mysql://u123456_upm:THE_PASSWORD@localhost:3306/u123456_upm
 SESSION_SECRET=<64 random hex characters>
 SMTP_HOST=smtp.hostinger.com
 SMTP_PORT=465
-SMTP_USER=contact@primefieldservices.com
+SMTP_USER=noreply@primefieldpropertyservices.com
 SMTP_PASS=<the mailbox password>
-MAIL_FROM="PrimeField Services <contact@primefieldservices.com>"
-NOTIFY_EMAIL=contact@primefieldservices.com
+MAIL_FROM="Primefield Property Services <noreply@primefieldpropertyservices.com>"
+NOTIFY_EMAIL=info@primefieldpropertyservices.com
 PUBLIC_SITE_MODE=served
 TRUST_PROXY=1
 ```
@@ -289,16 +289,16 @@ Same screen, **Environment variables**. Add one row per line of section 5 above:
 | Name | Value |
 | --- | --- |
 | `NODE_ENV` | `production` |
-| `SITE_URL` | `https://primefieldservices.com` |
+| `SITE_URL` | `https://primefieldpropertyservices.com` |
 | `DATA_DIR` | `/home/<hosting user>/primefield-data`. Read the note below. |
 | `DATABASE_URL` | left until step 4, when the database exists |
 | `SESSION_SECRET` | 64 random hex characters |
 | `SMTP_HOST` | `smtp.hostinger.com` |
 | `SMTP_PORT` | `465` |
-| `SMTP_USER` | `contact@primefieldservices.com` |
+| `SMTP_USER` | `noreply@primefieldpropertyservices.com` |
 | `SMTP_PASS` | the mailbox password |
-| `MAIL_FROM` | `PrimeField Services <contact@primefieldservices.com>` |
-| `NOTIFY_EMAIL` | `contact@primefieldservices.com` |
+| `MAIL_FROM` | `Primefield Property Services <noreply@primefieldpropertyservices.com>` |
+| `NOTIFY_EMAIL` | `info@primefieldpropertyservices.com` |
 | `PUBLIC_SITE_MODE` | `served` |
 | `TRUST_PROXY` | `1` |
 
@@ -501,7 +501,7 @@ screen still works.
 
 **Your username after the upgrade is the part of your email address before the `@`,
 lowered, with anything a username may not hold removed.** For
-`owner@primefieldservices.com` that is **`owner`**. The migration works it out
+`owner@primefieldpropertyservices.com` that is **`owner`**. The migration works it out
 and fills it in for every account already in the database; nothing has to be set by hand
 and no environment variable is needed for an account that already exists.
 
@@ -562,7 +562,7 @@ cleared from the CDN page in hPanel.
 To check, after the restart and the clear:
 
 ```
-curl -I https://primefieldservices.com/_astro/<any file ending in .avif>
+curl -I https://primefieldpropertyservices.com/_astro/<any file ending in .avif>
 ```
 
 The answer should carry `Content-Type: image/avif`. A file name to try is in the page source of
@@ -638,7 +638,7 @@ and it is now set to `DENY`.
 1. The headers a visitor receives:
 
    ```
-   curl -sI https://primefieldservices.com/ | grep -i -E "content-security-policy|x-frame-options"
+   curl -sI https://primefieldpropertyservices.com/ | grep -i -E "content-security-policy|x-frame-options"
    ```
 
    `x-frame-options: DENY` is the line to look for. Before v0.6.3 it read `SAMEORIGIN`, so `DENY`
@@ -649,7 +649,7 @@ and it is now set to `DENY`.
 2. The rules inside the page:
 
    ```
-   curl -s https://primefieldservices.com/ | head -c 600
+   curl -s https://primefieldpropertyservices.com/ | head -c 600
    ```
 
    Straight after `<meta charset="utf-8">` there should be a line that starts
@@ -671,7 +671,7 @@ depend on one: the rules inside the page do the work.
 If you would still like the header itself put right on their side, this is the question to send
 Hostinger support. It is optional.
 
-> My site primefieldservices.com is a Node.js web app on your hosting. Every response
+> My site primefieldpropertyservices.com is a Node.js web app on your hosting. Every response
 > carries the header `Content-Security-Policy: upgrade-insecure-requests`, and it replaces the
 > `Content-Security-Policy` header my application sends. Can you turn that header off for this
 > domain, or make the server keep my application's own header? If so, will the change survive a
